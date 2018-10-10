@@ -1,0 +1,65 @@
+
+ulimit -n 1048576
+sudo sysctl -w fs.file-max=2097152
+sudo sysctl -w fs.nr_open=2097152
+sudo sysctl -w net.core.somaxconn=65535
+sudo sysctl -p
+
+
+----------------加入mysql的认证---------------
+create database mqtt default character set utf8;
+
+---------------------------------user table----------------------------------
+
+CREATE TABLE `mqtt_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `salt` varchar(20) DEFAULT NULL,
+  `is_superuser` tinyint(1) DEFAULT 0,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mqtt_username` (`username`)
+) DEFAULT CHARSET=utf8;
+
+INSERT INTO mqtt_user (id, username, password, salt, is_superuser, created)
+VALUES
+    (1,'admin',sha('jack'),'jack',True,'2018-9-27 12:00:00'),
+    (2,'jack',sha('jack'),'jack',False,'2018-9-27 12:01:00');
+
+----------------------------------acl table-----------------------------------
+
+CREATE TABLE `mqtt_acl` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `allow` int(1) DEFAULT NULL COMMENT '0: deny, 1: allow',
+  `ipaddr` varchar(60) DEFAULT NULL COMMENT 'IpAddress',
+  `username` varchar(100) DEFAULT NULL COMMENT 'Username',
+  `clientid` varchar(100) DEFAULT NULL COMMENT 'ClientId',
+  `access` int(2) NOT NULL COMMENT '1: subscribe, 2: publish, 3: pubsub',
+  `topic` varchar(100) NOT NULL DEFAULT '' COMMENT 'Topic Filter',
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8;
+
+----acl表插入默认数据 带$SYS为broker保留的特殊topic用来统计使用，username为$all表示所有在user表中的用户----------------
+
+INSERT INTO mqtt_acl (id, allow, ipaddr, username, clientid, access, topic)
+VALUES
+    (1,1,NULL,'$all',NULL,2,'#'),
+    (2,1,NULL,'$all',NULL,1,'#'),
+    (3,1,NULL,'$all',NULL,3,'#'),
+    (4,1,'127.0.0.1',NULL,NULL,2,'$SYS/#'),
+    (5,1,'127.0.0.1',NULL,NULL,2,'#'),
+    (6,1,NULL,'dashboard',NULL,1,'$SYS/#');
+
+---源码安装时有--------------emqttd启动时的自启动插件----------------------
+---实在找不到 可以不要这一步 dashboard里启动一下 之后重启默认拉起-----------
+vim ./data/loaded_plugins
+------------增加    emq_auth_mysql.    --------------------
+
+----- 修改 etc/plugins/emq_auth_mysql.conf  
+加密算法采用sha 性能略差于sha256但强于md5 耗时相对较短(也因为mysql那边默认配置是sha1的 懒得弄成sha256的 有兴趣可以尝试)
+
+---------------------重新初始化emq--------源码安装时-直接安装需要看配置的log位置--------
+rm -rf data/mnesia/*
+rm -rf data/configs/*
+rm -rf log/*

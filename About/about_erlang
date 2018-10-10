@@ -1,0 +1,9 @@
+##安装依赖
+sudo yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel
+
+
+##erlang安装包已下好 解压进入 config make就好 如下命令
+tar xfvz otp_src_21.0.tar.gz
+cd otp_src_21.0/
+./configure --with-ssl
+sudo make install

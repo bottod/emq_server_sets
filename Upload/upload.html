@@ -1,0 +1,23 @@
+<html>
+
+<head>
+	<meta charset = "utf-8">
+	<script type="text/javascript" src="js/upload.js"></script>
+</head>
+
+<body> 
+
+	<h1>File API Demo</h1> 
+	<p> 
+		<form name="DemoForm" id="UploadForm" method="post" enctype="multipart/form-data" action="javascript: uploadAndSubmit();"> 
+			<p>Upload File: <input type="file" name="file" /></p> 
+			<p><input type="submit" value="Submit" /></p> 
+		</form> 
+		<div>
+			Progessing (in Bytes): <span id="bytesRead">  </span> / <span id="bytesTotal"></span> 
+		</div> 
+	</p> 
+
+</body>
+
+</html>

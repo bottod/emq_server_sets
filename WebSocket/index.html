@@ -1,0 +1,59 @@
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="js/paho-mqtt.js"></script>
+    <title>A simple MQTT Client</title>
+    <script type='text/javascript'>
+         //Using the mosquitto Broker running over websocket, with a random client Id
+         var host="101.132.70.232";
+         var port=8083
+         var client = new Paho.MQTT.Client(host, port, "id" + parseInt(Math.random() * 100, 10));
+         //Gets  called if the websocket/mqtt connection gets disconnected for any reason
+         client.onConnectionLost = function (responseObject) {
+             //Depending on your scenario you could implement a reconnect logic here
+             console.log("connection lost: " + responseObject.errorMessage);
+         };
+         //Gets called whenever you receive a message for your subscriptions
+         client.onMessageArrived = function (message) {
+             //Do something with the push message you received
+             $('#messages').append('message on topic:'+ message.destinationName + '  message: ' + message.payloadString+'<br>');
+         };
+         var success=function(){
+           console.log("connected");
+           subscribe();
+         };
+         var options = {
+             userName: "admin",
+             password: "jack",
+             //Gets Called if the connection has sucessfully been established
+             onSuccess: success,
+             //Gets Called if the connection could not be established
+             onFailure: function (message) {
+                 console.log("failed to connect");
+             }
+         };
+         var subscribe=function(){
+           client.subscribe('/word', {qos: 0});
+           console.log("subscribed");;
+         };
+         var connect=function(){
+           console.log('connecting');
+           client.connect(options);
+         }
+         var publish = function (topic,payload, qos,retained) {
+             var message = new Paho.MQTT.Message(payload);
+             message.destinationName = topic;
+             message.qos = qos;
+			 message.retained = retained;
+             client.send(message);
+         }
+    </script>
+</head>
+
+<body>
+    <button onclick="connect();">Connect & Subscribe</button>
+    <button onclick="publish('/word','testmsg',2,true);" > Publish </button>
+    <button onclick="client.disconnect();">Disconnect</button>
+    <div id="messages"></div>
+</body>
+
+</html>
