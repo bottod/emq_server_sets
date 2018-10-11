@@ -26,3 +26,8 @@
 由于之前本地构建 固定了本机IP
 现更新一个localhost版本mqtt_s 直接替换原来的即可
 版本置于fix/IPname_localhost目录下
+
+##2018.10.11_16:51 删除fix文件夹 更新release 解压即用  给出打包脚本 pack.sh
+
+
+
