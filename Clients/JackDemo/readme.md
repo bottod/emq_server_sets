@@ -21,3 +21,8 @@
 数据表名必须 mq_ 开头,后面跟conf里的'/'后的内容 (例子中为mq_temperature)
 按照建表模板(table_template)创建数据表 ctime可改 主列名必须是conf里的'/'后的内容 (例子中为temperature)
 !!!!!
+
+##
+由于之前本地构建 固定了本机IP
+现更新一个localhost版本mqtt_s 直接替换原来的即可
+版本置于fix/IPname_localhost目录下
