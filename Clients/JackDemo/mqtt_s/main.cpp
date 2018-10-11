@@ -10,6 +10,7 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::addLibraryPath("./plugins");
     QCoreApplication a(argc, argv);
 
     FakeMqttServer fake_server;

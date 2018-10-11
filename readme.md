@@ -1,7 +1,7 @@
 ##非md语法 直接阅读即可	ORG
 
 ###关于服务器选择
-出于对开发者能力水平的考虑 本次测评采用ubuntu server 也可采用ubuntu desktop 方便管理
+本次测评采用ubuntu server 也可采用ubuntu desktop 方便管理
 (没有专业的运维人员建议采用ubuntu 至于desktop还是server 操作简单选desktop)
 有能力可上centos
 
