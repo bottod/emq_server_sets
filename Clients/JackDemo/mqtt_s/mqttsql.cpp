@@ -27,8 +27,8 @@ int64_t MqttSql::mq_insert(std::string table_name,std::string col_name,std::stri
     real_col_name = col_name.erase(0,1);
 
     std::string real_query;
-    real_query = "INSERT INTO " + real_table_name + "(" + real_col_name +
-            ") VALUES (" + value + ")";
+    real_query = "INSERT INTO `" + real_table_name + "` ( `" + real_col_name +
+            "` ) VALUES (" + value + ")";
 
     return query.exec(real_query.c_str());
 }
