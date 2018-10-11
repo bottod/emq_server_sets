@@ -17,7 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    fakemqttserver.cpp
+    fakemqttserver.cpp \
+    mqttsql.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -35,5 +36,6 @@ INCLUDEPATH += $$PWD/Require/include/
 DEPENDPATH += $$PWD/Require/include/
 
 HEADERS += \
-    fakemqttserver.h
+    fakemqttserver.h \
+    mqttsql.h
 

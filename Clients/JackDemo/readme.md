@@ -10,3 +10,14 @@
 ## 
 ## 2018.10.10_16:18 
 ## 两个客户端功能还不完善 用作参考Demo
+
+## 2018.10.11_12:27 功能相对完善 做为server端够用了
+!!!!!
+本测试用程序要测试通过见下文 也可自行改代码 代码并不长
+必须保证的点：(举例说明)
+假如你的conf/subscribe.conf里其中一行是 /temperature
+数据库名必须是mq_playground
+创建用户名mq_admin 密码mq_password
+数据表名必须 mq_ 开头,后面跟conf里的'/'后的内容 (例子中为mq_temperature)
+按照建表模板(table_template)创建数据表 ctime可改 主列名必须是conf里的'/'后的内容 (例子中为temperature)
+!!!!!

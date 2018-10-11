@@ -1,0 +1,9 @@
+CREATE TABLE `mq_moisture` (
+    `moisture` double NOT NULL DEFAULT -256,
+    `ctime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `mq_temperature` (
+    `temperature` double NOT NULL DEFAULT -256,
+    `ctime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

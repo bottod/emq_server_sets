@@ -63,6 +63,7 @@ sudo dpkg -i libmysqlclient18_5.6.25-0ubuntu1_amd64.deb
 注、该 deb文件 以及 libmysqlclient.so.18 已下载在Source文件夹中
 )
 远程连接mysql需要mysql设置处开启外部访问权限，否则无法连接上数据库 具体设置在action.md中已经给出
+相关建表语句模板已给出 (Clients/table_template) 供参考
 
 
 
