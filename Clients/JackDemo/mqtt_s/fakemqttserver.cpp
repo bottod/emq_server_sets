@@ -7,7 +7,7 @@ FakeMqttServer::FakeMqttServer(QObject *parent) : QObject(parent)
 void FakeMqttServer::mqtt_init()
 {
     std::cout<<"fake_server init...."<<std::endl;
-    m_client.setHostname("172.16.163.134");
+    m_client.setHostname("101.132.70.232");
     m_client.setUsername("admin");
     m_client.setPassword("jack");
     m_client.setPort(1883);

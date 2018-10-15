@@ -9,14 +9,12 @@ MqttSql::MqttSql(QObject *parent) : QObject(parent)
     else
         db = QSqlDatabase::addDatabase("QMYSQL","qt_mqtt_connection");//uniqe connection name -> "qt_mqtt_connection"
 
-    db.setHostName("172.16.163.134");
+    db.setHostName("101.132.70.232");
     db.setDatabaseName("mq_playground");
     db.setUserName("mq_admin");
     db.setPassword("mq_password");
 
     db.open();
-    if(db.isOpen())
-        query = QSqlQuery(db);
 }
 
 int64_t MqttSql::mq_insert(std::string table_name,std::string col_name,std::string value)
@@ -30,5 +28,12 @@ int64_t MqttSql::mq_insert(std::string table_name,std::string col_name,std::stri
     real_query = "INSERT INTO `" + real_table_name + "` ( `" + real_col_name +
             "` ) VALUES (" + value + ")";
 
+    if(db.isOpen())
+        query = QSqlQuery(db);
+    else
+    {
+        db.open();
+        query = QSqlQuery(db);
+    }
     return query.exec(real_query.c_str());
 }
