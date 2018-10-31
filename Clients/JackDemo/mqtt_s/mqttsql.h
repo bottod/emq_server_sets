@@ -5,6 +5,8 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <fstream>
+#include <iostream>
 
 class MqttSql : public QObject
 {
@@ -17,11 +19,17 @@ private:
     QSqlQuery query;
 
 public:
-    int64_t mq_insert(std::string table_name,std::string col_name,std::string value);
+    void mq_insert(std::string tablename, std::string value);
+    std::string mysql_get_column();    //  get column info
+    void mysql_init_from_file();       //  init mysql info
+    void mysql_create_table();         //  create all table if not exists
+
 
 signals:
 
-public slots:
+private:
+    void format_string(std::string& input); //clean '/' and only leave after the final '/'
+
 };
 
 #endif // MQTTSQL_H

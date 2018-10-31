@@ -32,9 +32,23 @@
 > nginx 安装完可以适当优化，也可以不优化 这里稍加修改
 > (由于之后还要配置php等，之后将配置放在source文件夹下 可根据需要自行修改)
 >
-> #### 安装php7.2以及相关扩展
+> #### 安装php7.2以及相关扩展(这里建议装php5.4 可以不用扩展 喜欢新的装7.2也行)
+> PHP7移除了mysql扩展，推荐使用mysqli或者pdo_mysql 所以之前写的程序可能存在兼容性问题 也可以手动扩展mysql的扩展 (写程序时需要注意兼容性问题 500 err)这里采用手动扩展mysql 也可以将php版本回退到5.X版本 
 > sudo apt-get install php7.2 php7.2-fpm
 > sudo apt-get install php7.2-mysql php-pear php7.2-curl php7.2-json php7.2-cgi
+> __安装mysql扩展:__
+> apt install php7.2-dev
+> 到[扩展地址](http://git.php.net/?p=pecl/database/mysql.git;a=summary)下载最新的扩展上传到服务器(就第一个，日期最新的就行)
+> tar -xvf xxxx.tar.gz 解包
+> cd xxxx   (进入刚解包出来的文件夹)
+> phpize  (输入后如果需要安装东西就安装，没有就下一步)
+> ./configure --with-php-config=/usr/bin/php-config --with-mysql=mysqlnd  (根据具体自己的路径来)
+> make && make install
+> ls modules   (发现modules里多了一个mysql.so)
+> sudo cp modules/mysql.so /usr/lib   (放在一个想要的位置 该路径之后要用)
+> vim /etc/php/7.2/fpm/php.ini   (如果你和我一样就按我的来就行，不一样要视自己的路径来定)
+> 加入extension=/usr/lib/mysql.so  (加完后 按esc 输入:wq 退出 )
+> sudo /etc/init.d/php7.2-fpm restart  (重启php 扩展完毕)
 > __关闭php文件解析漏洞 __
 > sudo vim /etc/php/7.2/fpm/php.ini
 > 键入 /;cgi.fix_pathinfo=1
@@ -56,17 +70,17 @@
 >     }
 > ```
 > --------------------------------------------------------
-	这里我的步骤是(避免直接修改default 当然你可以直接修改default 甚至可以直接修改/etc/nginx/nginx.conf 这样做只是方便管理)	
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/php_supportt
-sudo vim /etc/nginx/sites-available/php_supportt
-__适当修改 即上面提到的在server中加入的东西__
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/php_supportt /etc/nginx/sites-enabled/php_supportt
-__php_support和nginx.conf已经给出__
-_测试nginx解析php以及连接mysql数据库；_mysql安装在下面(这里测试 用户名root 密码jack)
-根据php_support的设置可知网站根目录为 /var/www/html
-我们新建一个index.php 放在根目录下 写上相关测试代码用于测试
-__index.php已经给出__
+> 这里我的步骤是(避免直接修改default 当然你可以直接修改default 甚至可以直接修改/etc/nginx/nginx.conf 这样做只是方便管理)	
+> sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/php_supportt
+> sudo vim /etc/nginx/sites-available/php_supportt
+> __适当修改 即上面提到的在server中加入的东西__
+> sudo rm /etc/nginx/sites-enabled/default
+> sudo ln -s /etc/nginx/sites-available/php_supportt /etc/nginx/sites-enabled/php_supportt
+> __php_support和nginx.conf已经给出__
+> _测试nginx解析php以及连接mysql数据库；_mysql安装在下面(这里测试 用户名root 密码jack)
+> 根据php_support的设置可知网站根目录为 /var/www/html
+> 我们新建一个index.php 放在根目录下 写上相关测试代码用于测试
+> __index.php已经给出__
 
 
 

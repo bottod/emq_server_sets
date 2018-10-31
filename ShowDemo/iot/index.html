@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <title>Bottod Dash!</title>
+
+    <!-- css -->
+    <!-- Bootstrap -->
+    <link href="./css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="./css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="./css/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="./css/iCheck/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="./css/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="./css/jqvmap/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="./css/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="./css/custom/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Bottod Dash!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="images/img.png" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome to</span>
+                <h2>Bottod</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> F-客户端列表 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="javascript:void(0);" onclick="load_all_page('client1')">client1</a></li>
+                      <li><a href="javascript:void(0);" onclick="load_all_page('client2')">client2</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="leetcode" href="https://leetcode-cn.com/">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="github" href="https://github.com/">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="c++ ref" href="https://zh.cppreference.com/w/cpp">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="退出登录" href="#">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:void(0);" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="images/img.png" alt="">设置
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="#"><i class="fa fa-sign-out pull-right"></i>退出</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <!-- top tiles -->
+          <div class="row tile_count">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top">时间</span>
+              <div id="response_time_count" class="count"></div>
+              <span class="count_bottom">last data</span>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top">电压</span>
+              <div id="voltage_count" class="count"></div>
+              <span class="count_bottom">last data</span>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top">温度</span>
+              <div id="temperature_count" class="count"></div>
+              <span class="count_bottom">last data</span>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top">湿度</span>
+              <div id="humidity_count" class="count"></div>
+              <span class="count_bottom">last data</span>
+            </div>
+          </div>
+          <!-- /top tiles -->
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div id="response_time_graph" style="height:400px;width:100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div id="voltage_graph" style="height:400px;width:100%;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row x_title">
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div id="temperature_graph" style="height:400px;width:100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div id="humidity_graph" style="height:400px;width:100%;">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Bootstrap Template modify by jack
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="./js/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="./js/bootstrap/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="./js/fastclick/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="./js/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="./js/Chart.js/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="./js/gauge.js/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="./js/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="./js/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="./js/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="./js/Flot/jquery.flot.js"></script>
+    <script src="./js/Flot/jquery.flot.pie.js"></script>
+    <script src="./js/Flot/jquery.flot.time.js"></script>
+    <script src="./js/Flot/jquery.flot.stack.js"></script>
+    <script src="./js/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="./js/flot.orderbars/jquery.flot.orderBars.js"></script>
+    <script src="./js/flot-spline/jquery.flot.spline.min.js"></script>
+    <script src="./js/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="./js/DateJS/date.js"></script>
+    <!-- JQVMap -->
+    <script src="./js/jqvmap/jquery.vmap.js"></script>
+    <script src="./js/jqvmap/jquery.vmap.world.js"></script>
+    <script src="./js/jqvmap/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="./js/moment/moment.min.js"></script>
+    <script src="./js/bootstrap-daterangepicker/daterangepicker.js"></script>
+    
+
+    <!-- bottod -->
+    <script src="./js/echarts/echarts.min.js"></script>
+    <script src="./js/echarts/theme/dark.js"></script>
+    <script src="./js/bottod/bottod.js"></script>
+
+
+    <!-- default load -->
+    <script type="text/javascript">
+      load_all_page("client1");
+    </script>
+
+
+    <!-- Custom Theme Scripts -->
+    <script src="./js/custom/custom.min.js"></script>
+	
+  </body>
+</html>

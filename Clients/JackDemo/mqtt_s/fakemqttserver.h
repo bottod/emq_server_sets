@@ -14,8 +14,9 @@ public:
     explicit FakeMqttServer(QObject *parent = nullptr);
 
 private:
-    QMqttClient m_client;
-    MqttSql sql;
+    QMqttClient m_fake_server;
+
+    void mqtt_init_from_file();
 
 public:
     void mqtt_init();
