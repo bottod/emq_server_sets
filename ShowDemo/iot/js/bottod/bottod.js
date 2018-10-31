@@ -539,3 +539,26 @@ function load_all_page(clientid)
     set_last_voltage("temperature_count",clientid);
     set_last_humidity("humidity_count",clientid);
 }
+
+function auto_add_client(htmlid)
+{
+    var xhr = new XMLHttpRequest;
+    xhr.open('post', './php/get_table.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send();
+    xhr.onreadystatechange = function() 
+    {
+        if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status ==304)) 
+        { 
+            var rst = JSON.parse(xhr.responseText);
+            for(i=0;i<rst.length;i++)
+            {
+                var ul = document.getElementById(htmlid);
+                var li = document.createElement("li");
+                li.innerHTML="<a href=\"javascript:void(0);\" onclick=load_all_page(\""+rst[i]+"\")>"+rst[i]+"</a>";
+                ul.appendChild(li);
+            }
+            load_all_page(rst[0]);
+        }
+    }
+}

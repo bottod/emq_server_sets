@@ -62,9 +62,7 @@
               <div class="menu_section">
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> F-客户端列表 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="javascript:void(0);" onclick="load_all_page('client1')">client1</a></li>
-                      <li><a href="javascript:void(0);" onclick="load_all_page('client2')">client2</a></li>
+                    <ul id = "f_client" class="nav child_menu">
                     </ul>
                   </li>
                 </ul>
@@ -231,7 +229,7 @@
 
     <!-- default load -->
     <script type="text/javascript">
-      load_all_page("client1");
+      auto_add_client("f_client");
     </script>
 
 
